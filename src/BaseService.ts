@@ -11,7 +11,9 @@ export class BaseService {
             var queue = channel.declareQueue(route.name, {durable:false});
             queue.bind(exchange);
             queue.activateConsumer((message: Message) => {
-            return route.method(message);
+                console.log("Message received: " + message.getContent());
+                return route.method(message);
+                
             },{noAck: true});
         }
     }
