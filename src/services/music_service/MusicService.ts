@@ -1,17 +1,17 @@
-import Login from "./controllers/Login";
+import getTracks from "./controllers/GetTracks";
 import { BaseService } from "../../BaseService";
 import { Route } from "../../Route";
 import { Connection } from "amqp-ts";
 
-export class UserService extends BaseService {
+export class MusicService extends BaseService {
     constructor(channel: Connection) {
         super(
             channel,
-            "UserExchange",
+            "MusicExchange",
             [
                 {
-                    name: "login",
-                    method: Login
+                    name: "getTracks",
+                    method: getTracks
                 }
             ]);
             
