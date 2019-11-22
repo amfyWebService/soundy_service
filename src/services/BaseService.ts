@@ -5,11 +5,11 @@ export class BaseService {
 
 
     constructor(channel: Connection, routes: Route[]) {
-     
+        const exchange = channel.declareExchange("soundy_exchange");
  
         for (let route of routes) {
-            var queue = channel.declareQueue(route.name, {durable:false});
-      
+            let queue = channel.declareQueue(route.name, {durable:true});
+            queue.bind(exchange);
             queue.activateConsumer((message: Message) => {
                 return route.method(message);
                 
