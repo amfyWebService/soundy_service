@@ -8,8 +8,6 @@ async function main()
   let connection = new Amqp.Connection("amqp://localhost:8080");
   new UserService(connection); 
   connect();  
-  
-  
 }
 
 

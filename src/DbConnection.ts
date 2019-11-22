@@ -19,6 +19,7 @@ export async function connect() {
       Track,
       Playlist
   ],
+  useUnifiedTopology: true
    });
 }
 
