@@ -4,12 +4,15 @@ import { logger } from './shared';
 import express, {Application} from "express";
 import bodyParser from 'body-parser';
 import ExpressRoutes from './ExpressRoutes';
+import {connect} from "@/DbConnection";
 
 export class App {
+  
   public expressApp: Application;
   public amqpConnection: Amqp.Connection;
 
   constructor() {
+    connect();
     this.expressApp = express();
     this.setExpressConfig();
     new ExpressRoutes(this);
