@@ -1,14 +1,52 @@
 import * as Amqp from "amqp-ts";
 import { UserService } from "./services/user_service/UserService";
 import { logger } from './shared';
+import express, {Application} from "express";
+import bodyParser from 'body-parser';
+import ExpressRoutes from './ExpressRoutes';
 
-function main() : void
-{
-  const connection = new Amqp.Connection(process.env.AMQP_URL);
-  const userService = new UserService(connection);
+export class App {
+  public expressApp: Application;
+  public amqpConnection: Amqp.Connection;
 
-  logger.info("Server started on amqp: " + process.env.AMQP_URL);
+  constructor() {
+    this.expressApp = express();
+    this.setExpressConfig();
+    new ExpressRoutes(this);
+  }
+
+  private setExpressConfig(){
+    //Allows us to receive requests with data in json format
+    this.expressApp.use(bodyParser.json({ limit: '50mb' }));
+    //Allows us to receive requests with data in x-www-form-urlencoded format
+    // this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+  }
+
+  async run(){
+    await Promise.all([
+      this.runExpress(parseInt(process.env.PORT || '3000')),
+      this.runAmqp(process.env.AMQP_URL || '')
+    ]);
+
+    logger.info('Server started: { Express port: ' + process.env.PORT + ", Amqp url: " + process.env.AMQP_URL + " }");
+  }
+
+  private async runExpress(port:number){
+    return new Promise((resolve, reject) => {
+      this.expressApp.listen(process.env.PORT, () => {
+        resolve();
+      });
+    });
+  }
+
+  private async runAmqp(url:string){
+    this.amqpConnection = new Amqp.Connection(process.env.AMQP_URL);
+    const userService = new UserService(this.amqpConnection);
+  }
 }
 
-main();
+const app = new App();
+app.run();
+
+export default app;
 
