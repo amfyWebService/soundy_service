@@ -4,22 +4,40 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node ./util/build.js",
+    "lint": "tslint --project \"tsconfig.json\"",
+    "start:prod": "cross-env NODE_ENV=production node -r ./env -r module-alias/register ./dist/start.js",
+    "start": "cross-env NODE_ENV=development nodemon --inspect --config \"./util/nodemon.json\"",
+    "test": "cross-env NODE_ENV=testing nodemon --config \"./util/nodemon.test.json\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bluebird": "^3.5.29",
+    "@types/body-parser": "^1.17.1",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.2",
+    "@types/jest": "^24.0.23",
+    "@types/morgan": "^1.7.37",
     "@types/node": "^12.12.11",
+    "@types/validator": "^12.0.0",
+    "@types/winston": "^2.4.4",
+    "fs-extra": "^8.1.0",
+    "jest": "^24.9.0",
     "nodemon": "^1.19.4",
     "ts-node": "^8.5.2",
+    "tsconfig-paths": "^3.9.0",
+    "tslint": "^5.20.1",
     "typescript": "^3.7.2"
   },
   "dependencies": {
-    "@types/bluebird": "^3.5.29",
-    "@types/validator": "^12.0.0",
     "amqp-ts": "^1.8.0",
-    "sequelize": "^5.21.2",
-    "typescript-logging": "^0.6.4"
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "cross-env": "^6.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "module-alias": "^2.2.2",
+    "winston": "^3.2.1"
   }
 }

@@ -8,7 +8,7 @@ export class BaseService {
         var exchange = channel.declareExchange(exchangeName);
  
         for (let route of routes) {
-            var queue = channel.declareQueue(route.name, {durable:false});
+            var queue = channel.declareQueue(route.name, {durable:true});
             queue.bind(exchange);
             queue.activateConsumer((message: Message) => {
                 console.log("Message received: " + message.getContent());
