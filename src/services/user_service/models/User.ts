@@ -1,5 +1,5 @@
 import { Entity, ObjectID, ObjectIdColumn, Column, BeforeInsert, BeforeUpdate, Unique } from "typeorm";
-import { createHmac } from "crypto";
+import {hash, hashSync} from "bcrypt"
 import {IsEmail, IsDate} from "class-validator";
 
 @Entity()
@@ -13,9 +13,9 @@ export default class User {
 
     @BeforeInsert()
     @BeforeUpdate()
-    hashPassword() {
+    hashPassword(password ?: string )  {
         if (this.password) {
-            this.password = createHmac('sha256', this.password).digest('hex');
+            this.password = hashSync(this.password,10);
         }
     }
 

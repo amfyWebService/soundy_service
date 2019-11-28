@@ -19,6 +19,7 @@ export default async function (message : Message){
     user.firstName = info.firstname;
     user.birthday = info.birthday;
     user.mail = info.mail;
+    user.password = info.password;
     if(await validate(user))
     {
         try

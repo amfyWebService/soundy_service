@@ -6,6 +6,8 @@ import { Playlist } from "./services/music_service/models/Playlist";
 import * as Amqp from "amqp-ts";
 
 
+
+
 var  _connection: Connection;
 export async function connect() {
   _connection = await createConnection({

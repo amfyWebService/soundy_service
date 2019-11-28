@@ -9,3 +9,8 @@ export function generateJSON(code : string, message: string) : string
 
     return JSON.stringify(obj);
 }
+
+export function hashPassword(password : string)
+{
+    
+}

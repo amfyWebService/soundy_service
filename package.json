@@ -16,7 +16,11 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/properties-reader": "0.0.1",
     "amqp-ts": "^1.8.0",
+    "bcrypt": "^3.0.7",
+    "bcrypt-nodejs": "0.0.3",
     "class-validator": "^0.11.0",
     "mongodb": "^3.3.4",
     "reflect-metadata": "^0.1.13",
