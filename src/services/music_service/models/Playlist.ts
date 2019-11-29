@@ -1,15 +1,12 @@
 import { Entity, ObjectID, ObjectIdColumn, Column, BeforeInsert, BeforeUpdate } from "typeorm";
 import { type } from "os";
 import { Track } from "./Track";
+import { MusicList } from './MusicList';
 
 @Entity()
-export class Playlist
+export class Playlist extends MusicList
 {
-
-    @ObjectIdColumn()
-    id: ObjectID;
-
-    @Column(type => Track)
-    tracks : Track[];
+    @Column()
+    owner : String;
 
 }

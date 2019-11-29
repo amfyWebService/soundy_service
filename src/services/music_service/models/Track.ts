@@ -13,4 +13,7 @@ export class Track
 
     @Column()
     cover : string;
+
+    @Column()
+    link : string;
 }
