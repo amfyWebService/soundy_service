@@ -1,5 +1,5 @@
 
-export function generateJSON(code : string, message: string) : string
+export function generateJSON(code : string, message: string|object) : string
 {
     let obj = 
     {

@@ -1,14 +1,37 @@
 import { Message } from "amqp-ts";
-import crypto from "crypto";
-import {hash} from "bcrypt"
-import { getMongoManager } from "typeorm";
+import { getMongoRepository } from "typeorm";
+import { EntityNotFoundError } from "typeorm/error/EntityNotFoundError";
 import User from "../models/User";
+import {compareSync} from "bcrypt"
+import jwt from "jsonwebtoken";
+import BadLoginError from '../error/BadLoginError';
 
-export default function (message : Message){
-    let info = JSON.parse(message.getContent());
-    let user = new User();
-    user.mail = info.mail;
-    user.hashPassword(info.password);
-    let manager =  getMongoManager();
-    return "ok";
+export default async function login (body: any, message : Message){
+    try
+    {
+        let myUser = await getMongoRepository(User).findOneOrFail({ mail : body.username });
+        if(compareSync(body.password , myUser.password))
+        {
+            const token = generateToken(myUser);
+            return {token: token, user: myUser}
+        }
+        else
+        {
+            throw new BadLoginError();
+        }
+    }
+    catch(e)
+    {
+        if(e instanceof EntityNotFoundError){
+            throw new BadLoginError();
+        }
+
+        else throw e;
+    }
+
+}
+
+function generateToken(user: User): string {
+    const token = jwt.sign({id: user.id}, process.env.JWT_KEY, {expiresIn: "7d"});
+    return token;
 }
