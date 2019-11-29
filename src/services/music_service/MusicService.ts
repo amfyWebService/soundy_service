@@ -14,7 +14,7 @@ export class MusicService extends BaseService {
                     method: getTracks
                 },
                 {
-                    name: "registerTracks",
+                    name: "registerTrack",
                     method : registerTracks
                 }
             ]);
