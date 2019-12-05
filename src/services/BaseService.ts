@@ -8,11 +8,12 @@ export class BaseService {
 
     constructor(channel: Connection, routes: Route[]) {
         const exchange = channel.declareExchange("soundy_exchange");
- 
+        console.log("baseService")
         for (let route of routes) {
             let queue = channel.declareQueue(route.name, {durable:true});
             queue.bind(exchange);
             queue.activateConsumer(async (message: Message) => {
+                
                 try {
                     let body = JSON.parse(message.getContent().toString());
                     const ret = await route.method(body, message);
