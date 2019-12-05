@@ -1,27 +1,24 @@
 import { Message } from 'amqp-ts';
 import { Track } from '../models/Track';
 import { getMongoRepository } from 'typeorm';
+import InternalServerError from '@/shared/error/InternalServerError';
 
-export function registerTracks(message : Message)
+export function registerTracks(body: any, message : Message)
 {
-    console.log("ok2")
-    let info = JSON.parse(message.getContent());
-    let track = new Track();
     try
     {
-        track.owner = info.owner;
-        track.cover = info.cover;
-        track.genre = info.genre;
-        track.link = info.link;
+        let track = new Track();
+        track.owner = body.owner;
+        track.cover = body.cover;
+        track.genre = body.genre;
+        track.link = body.link;
         getMongoRepository(Track).save(track);
-        return track.toJson();
+        return {track : track};
 
     }
     catch(e)
     {
-        console.log("ok");
-        return "tamere"
+        throw new InternalServerError(e);
     }
      
-    return "ok";
 }
