@@ -1,8 +1,8 @@
-import Login from "./controllers/Login";
 import { BaseService } from "../BaseService";
-import { Route } from "../Route";
 import { Connection } from "amqp-ts";
+import Login from "./controllers/Login";
 import Register from "./controllers/Register";
+import authenticate from './controllers/Authenticate';
 
 export class UserService extends BaseService {
     constructor(channel: Connection) {
@@ -16,6 +16,10 @@ export class UserService extends BaseService {
                 {
                     name: "register",
                     method : Register
+                },
+                {
+                    name: "authenticate",
+                    method : authenticate
                 }
             ]);
             
