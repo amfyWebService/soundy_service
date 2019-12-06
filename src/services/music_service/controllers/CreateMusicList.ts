@@ -36,6 +36,7 @@ export function createAlbum (body : any,message : Message) {
         let album = new Album();
         album.artist = body.artist;
         album.cover = body.cover;
+        album.tracks = [];
         createMusicList(album, body);
         try
         {

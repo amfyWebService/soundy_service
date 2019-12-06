@@ -4,6 +4,7 @@ import User from "./services/user_service/models/User";
 import { Track } from "./services/music_service/models/Track";
 import { Playlist } from "./services/music_service/models/Playlist";
 import { MusicList } from './services/music_service/models/MusicList';
+import { Album } from './services/music_service/models/Album';
 
 var _connection: Connection;
 export async function connect() {
@@ -16,7 +17,8 @@ export async function connect() {
     entities: [
       User,
       Track,
-      Playlist
+      Playlist,
+      Album
     ],
     useUnifiedTopology: true
   });

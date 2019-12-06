@@ -56,9 +56,9 @@ export async function addTrackToAlbum(body: any, message: Message)
             const [album, track] = await Promise.all([getMongoRepository(Album).findOneOrFail(body.albumID), getMongoRepository(Track).findOneOrFail(body.trackID)]);
             album.isTrackInMusicList(body.trackID)
             album.tracks.push(track);
-            await getMongoRepository(Playlist).replaceOne({_id : album._id},{...album})
+            await getMongoRepository(Album).replaceOne({_id : album._id},{...album})
         
-            return { playlist: await getMongoRepository(Playlist).find({where : {_id : album._id}}) };
+            return { playlist: await getMongoRepository(Album).find({where : {_id : album._id}}) };
         }
         catch (e) 
         {
