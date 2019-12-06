@@ -4,7 +4,7 @@ import { Route } from "../Route";
 import { Connection } from "amqp-ts";
 import { registerTracks } from './controllers/RegisterTrack';
 import { addTrackToPlaylist } from './controllers/AddTrackToPlaylist';
-import CreatePlaylist from './controllers/CreatePlaylist';
+import {createAlbum,createPlaylist} from './controllers/CreateMusicList';
 
 export class MusicService extends BaseService {
     constructor(channel: Connection) {
@@ -25,7 +25,12 @@ export class MusicService extends BaseService {
                 },
                 {
                     name: "createPlaylist",
-                    method: CreatePlaylist
+                    method: createPlaylist
+                },
+                {
+                    
+                    name: "createAlbum",
+                    method: createAlbum
                 }
             ]);
             

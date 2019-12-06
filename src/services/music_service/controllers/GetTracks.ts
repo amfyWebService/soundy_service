@@ -1,6 +1,6 @@
 import { Message } from "amqp-ts";
 
-export default function (message : Message) : string{
+export default function (body : any , message : Message) : string{
     console.log("ok" + message);
     return "tamere";
 }
