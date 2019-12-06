@@ -1,6 +1,6 @@
 import { Entity, ObjectID, ObjectIdColumn, Column, BeforeInsert, BeforeUpdate, Unique } from "typeorm";
 import {hash, hashSync} from "bcrypt"
-import {IsEmail, IsDate, IsDateString} from "class-validator";
+import {IsEmail, IsDate, IsDateString, IsISO8601} from "class-validator";
 import { json } from 'body-parser';
 
 @Entity()
@@ -27,7 +27,7 @@ export default class User {
     @IsEmail()
     mail : string;
 
-    @IsDateString()
+    @IsISO8601()
     @Column()
     birthday : Date;
     
