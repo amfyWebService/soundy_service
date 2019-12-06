@@ -13,11 +13,10 @@ export function registerTracks(body: any, message : Message)
         track.link = body.link;
         getMongoRepository(Track).save(track);
         return {track : track};
-
     }
     catch(e)
     {
-        /* TODO changer type erreur*/
+
         throw new InternalServerError(e);
     }
      
