@@ -11,6 +11,7 @@ export function createPlaylist (body : any,message : Message) {
     {
         let playlist = new Playlist();
         playlist.owner = body.owner;
+        playlist.tracks = [];
         createMusicList(playlist, body);
         try
         {

@@ -21,7 +21,7 @@ export default async function (body: any, message: Message) {
         try {
             const manager = getMongoManager();
             await manager.save(user);
-            return {};
+            return {user : user};
         }
         catch (e) {
             if (e.code == ERROR_NOT_UNIQUE_CODE) {

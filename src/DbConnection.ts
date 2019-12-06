@@ -17,7 +17,6 @@ export async function connect() {
       User,
       Track,
       Playlist,
-      MusicList
   ],
   useUnifiedTopology: true
    });

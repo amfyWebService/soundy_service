@@ -5,8 +5,6 @@ export class Track
     @ObjectIdColumn()
     id: ObjectID;
     
-    @Column()
-    genre : string;
 
     @ObjectIdColumn()
     owner : ObjectID;
@@ -21,4 +19,5 @@ export class Track
     {
         return JSON.stringify(this);
     }
+
 }

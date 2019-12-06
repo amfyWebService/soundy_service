@@ -32,6 +32,6 @@ export default async function login (body: any, message : Message){
 }
 
 function generateToken(user: User): string {
-    const token = jwt.sign({id: user.id}, process.env.JWT_KEY, {expiresIn: "7d"});
+    const token = jwt.sign({id: user._id}, process.env.JWT_KEY, {expiresIn: "7d"});
     return token;
 }

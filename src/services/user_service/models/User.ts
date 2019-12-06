@@ -1,13 +1,12 @@
 import { Entity, ObjectID, ObjectIdColumn, Column, BeforeInsert, BeforeUpdate, Unique } from "typeorm";
 import {hash, hashSync} from "bcrypt"
 import {IsEmail, IsDate, IsDateString} from "class-validator";
-import { json } from 'body-parser';
 
 @Entity()
 export default class User {
 
     @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
 
     @Column()
     public password: string;

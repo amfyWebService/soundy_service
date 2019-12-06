@@ -10,15 +10,13 @@ export function registerTracks(body: any, message : Message)
         let track = new Track();
         track.owner = body.owner;
         track.cover = body.cover;
-        track.genre = body.genre;
         track.link = body.link;
         getMongoRepository(Track).save(track);
         return {track : track};
-
     }
     catch(e)
     {
-        /* TODO changer type erreur*/
+
         throw new InternalServerError(e);
     }
      

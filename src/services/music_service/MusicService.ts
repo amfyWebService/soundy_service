@@ -3,7 +3,7 @@ import { BaseService } from "../BaseService";
 import { Route } from "../Route";
 import { Connection } from "amqp-ts";
 import { registerTracks } from './controllers/RegisterTrack';
-import { addTrackToPlaylist } from './controllers/AddTrackToPlaylist';
+import { addTrackToPlaylist } from './controllers/AddTrackToMusicList';
 import {createAlbum,createPlaylist} from './controllers/CreateMusicList';
 
 export class MusicService extends BaseService {
