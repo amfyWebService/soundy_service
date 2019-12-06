@@ -32,10 +32,10 @@ export default class User {
     birthday : Date;
     
     @Column()
-    firstName: string;
+    firstname: string;
 
     @Column()
-    lastName: string;
+    lastname: string;
 
     toJson()
     {

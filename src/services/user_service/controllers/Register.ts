@@ -10,8 +10,8 @@ const ERROR_NOT_UNIQUE_CODE = "11000";
 
 export default async function (body: any, message: Message) {
     let user = new User();
-    user.lastName = body.lastname;
-    user.firstName = body.firstname;
+    user.lastname = body.lastname;
+    user.firstname = body.firstname;
     user.birthday = body.birthday;
     user.mail = body.mail;
     user.password = body.password;
