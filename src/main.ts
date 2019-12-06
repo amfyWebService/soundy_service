@@ -12,7 +12,6 @@ export class App {
   public amqpConnection: Amqp.Connection;
 
   constructor() {
-    connect();
     this.expressApp = express();
     this.setExpressConfig();
     new ExpressRoutes(this);
@@ -28,7 +27,8 @@ export class App {
   async run(){
     await Promise.all([
       this.runExpress(parseInt(process.env.PORT || '3000')),
-      this.runAmqp(process.env.AMQP_URL || '')
+      this.runAmqp(process.env.AMQP_URL || ''),
+      connect(),
     ]);
 
     logger.info('Server started: { Express port: ' + process.env.PORT + ", Amqp url: " + process.env.AMQP_URL + " }");

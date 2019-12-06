@@ -7,7 +7,7 @@
     "build": "node ./util/build.js",
     "lint": "tslint --project \"tsconfig.json\"",
     "start:prod": "cross-env NODE_ENV=production node -r ./env -r module-alias/register ./dist/start.js",
-    "start": "cross-env NODE_ENV=development nodemon --inspect --config \"./util/nodemon.json\"",
+    "start": "nodemon --inspect --config \"./util/nodemon.json\"",
     "test": "cross-env NODE_ENV=testing nodemon --config \"./util/nodemon.test.json\""
   },
   "author": "",

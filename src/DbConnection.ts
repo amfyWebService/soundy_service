@@ -4,8 +4,8 @@ import User from "./services/user_service/models/User";
 import { Track } from "./services/music_service/models/Track";
 import { Playlist } from "./services/music_service/models/Playlist";
 
-var  _connection: Connection;
-export async function connect() {  
+var _connection: Connection;
+export async function connect() {
   _connection = await createConnection({
     type: "mongodb",
     synchronize: true,
@@ -16,11 +16,11 @@ export async function connect() {
       User,
       Track,
       Playlist
-  ],
-  useUnifiedTopology: true
-   });
+    ],
+    useUnifiedTopology: true
+  });
 }
 
-export function connected() { 
+export function connected() {
   return _connection.isConnected;
 }
