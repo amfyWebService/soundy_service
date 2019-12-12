@@ -5,15 +5,17 @@ export class Track
     @ObjectIdColumn()
     id: ObjectID;
     
-
     @ObjectIdColumn()
     owner : ObjectID;
 
     @Column()
-    cover : string;
+    title: string;
 
     @Column()
-    link : string;
+    cover: string;
+
+    @Column()
+    link: string;
 
     toJson() :string
     {
