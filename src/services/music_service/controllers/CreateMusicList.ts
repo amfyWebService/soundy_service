@@ -6,17 +6,17 @@ import { getMongoRepository, MongoRepository } from 'typeorm';
 import InternalServerError from '@/shared/error/InternalServerError';
 import MissingArgumentException from '@/shared/error/MissingArgumentException';
 
-export function createPlaylist (body : any,message : Message) {
+export async function createPlaylist (body : any,message : Message) {
     try
     {
         let playlist = new Playlist();
         playlist.owner = body.owner;
         playlist.tracks = [];
-        createMusicList(playlist, body);
+        playlist.name = body.name;
         try
         {
-            getMongoRepository(Playlist).save(playlist);
-            return {playlist : playlist};
+            let playlist2 = await getMongoRepository(Playlist).save(playlist)
+            return {playlist : playlist2};
         }
         catch(e)
         {
@@ -30,18 +30,18 @@ export function createPlaylist (body : any,message : Message) {
     }
 }
 
-export function createAlbum (body : any,message : Message) {
+export async function createAlbum (body : any,message : Message) {
     try
     {
         let album = new Album();
         album.artist = body.artist;
         album.cover = body.cover;
         album.tracks = [];
-        createMusicList(album, body);
+        album.name = body.name;
         try
         {
-            getMongoRepository(Album).save(album);
-            return {album : album}
+            let album2 = await getMongoRepository(Album).save(album);
+            return {album : album2}
         }
         catch(e)
         {

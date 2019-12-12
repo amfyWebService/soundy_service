@@ -6,7 +6,6 @@ import MissingArgumentException from '@/shared/error/MissingArgumentException';
 import InternalServerError from '@/shared/error/InternalServerError';
 import { EntityNotFoundError } from 'typeorm/error/EntityNotFoundError';
 import EntityNotFoundErrorCusto from "@/shared/error/EntityNotFoundError"
-import { validate } from 'class-validator';
 import MusicAlreadyInPlaylistError from '../error/MusicAlreadyInPlaylistError';
 import { Album } from '../models/Album';
 
