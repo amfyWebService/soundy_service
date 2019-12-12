@@ -1,11 +1,10 @@
-import {getTrack} from "./controllers/GetTracks";
+import {getTrack} from "./controllers/GetTrack";
 import { BaseService } from "../BaseService";
-import { Route } from "../Route";
 import { Connection } from "amqp-ts";
-import { registerTracks } from './controllers/RegisterTrack';
-import { addTrackToPlaylist, addTrackToAlbum } from './controllers/AddTrackToMusicList';
+import { registerTrack } from './controllers/RegisterTrack';
+import { addTrackToPlaylist, addTrackToAlbum } from './controllers/AddTrackToPlaylist';
 import {createAlbum,createPlaylist} from './controllers/CreateMusicList';
-import { getPlaylistByID, getAlbumByID, getAlbumByUserID, getPlaylistByUserID } from './controllers/getMusicList';
+import { getPlaylistByID, getAlbumByID, getAlbumsByUserID, getPlaylistsByUserID } from './controllers/GetMusicList';
 
 export class MusicService extends BaseService {
     constructor(channel: Connection) {
@@ -13,19 +12,19 @@ export class MusicService extends BaseService {
             channel,
             [
                 {
-                    name: "getTracks",
+                    name: "getTrack",
                     method: getTrack
                 },
                 {
                     name: "registerTrack",
-                    method : registerTracks
+                    method : registerTrack
                 },
                 {
-                    name: "addToPlaylist",
+                    name: "addTrackToPlaylist",
                     method: addTrackToPlaylist
                 },
                 {
-                    name : "addToAlbum",
+                    name : "addTrackToAlbum",
                     method : addTrackToAlbum
                 },
                 {
@@ -33,11 +32,9 @@ export class MusicService extends BaseService {
                     method: createPlaylist
                 },
                 {
-                    
                     name: "createAlbum",
                     method: createAlbum
-                }
-                ,
+                },
                 {
                     name : "getPlaylistByID",
                     method : getPlaylistByID
@@ -48,11 +45,11 @@ export class MusicService extends BaseService {
                 },
                 {
                     name : "getAlbumsByUserID",
-                    method : getAlbumByUserID
+                    method : getAlbumsByUserID
                 },
                 {
                     name : "getPlaylistsByUserID",
-                    method : getPlaylistByUserID
+                    method : getPlaylistsByUserID
                 }
             ]);
             

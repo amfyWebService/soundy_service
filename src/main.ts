@@ -44,7 +44,7 @@ export class App {
   }
 
   private async runAmqp(url:string){
-    console.log("instanciation")
+    logger.info("Run AMQP");
     this.amqpConnection = new Amqp.Connection(process.env.AMQP_URL);
     const userService = new UserService(this.amqpConnection);
     const musicService = new MusicService(this.amqpConnection);

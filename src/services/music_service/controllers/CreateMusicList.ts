@@ -2,60 +2,49 @@ import { Message } from "amqp-ts";
 import { MusicList } from '../models/MusicList';
 import { Playlist } from '../models/Playlist';
 import { Album } from '../models/Album';
-import { getMongoRepository, MongoRepository } from 'typeorm';
+import { getMongoRepository } from 'typeorm';
 import InternalServerError from '@/shared/error/InternalServerError';
-import MissingArgumentException from '@/shared/error/MissingArgumentException';
+import MissingArgumentError from '@/shared/error/MissingArgumentError';
 
-export async function createPlaylist (body : any,message : Message) {
-    try
-    {
+export async function createPlaylist(body: any, message: Message) {
+    try {
         let playlist = new Playlist();
         playlist.owner = body.owner;
         playlist.tracks = [];
         playlist.name = body.name;
-        try
-        {
-            let playlist2 = await getMongoRepository(Playlist).save(playlist)
-            return {playlist : playlist2};
+        try {
+            return await getMongoRepository(Playlist).save(playlist)
         }
-        catch(e)
-        {
+        catch (e) {
             throw new InternalServerError(e);
         }
-        
+
     }
-    catch(e)
-    {
-        throw new MissingArgumentException(e);
+    catch (e) {
+        throw new MissingArgumentError(e);
     }
 }
 
-export async function createAlbum (body : any,message : Message) {
-    try
-    {
+export async function createAlbum(body: any, message: Message) {
+    try {
         let album = new Album();
         album.artist = body.artist;
         album.cover = body.cover;
         album.tracks = [];
         album.name = body.name;
-        try
-        {
-            let album2 = await getMongoRepository(Album).save(album);
-            return {album : album2}
+        try {
+            return await getMongoRepository(Album).save(album);
         }
-        catch(e)
-        {
+        catch (e) {
             throw new InternalServerError(e);
         }
     }
-    catch(e)
-    {
-        throw new MissingArgumentException(e); 
+    catch (e) {
+        throw new MissingArgumentError(e);
     }
-    
+
 }
 
-function createMusicList(list : MusicList, body : any) : void
-{
+function createMusicList(list: MusicList, body: any): void {
     list.name = body.name;
 }

@@ -9,8 +9,7 @@ export async function getPlaylistByID(body : any, message : Message)
 {
     try
     {
-        let playlist : Playlist = await getMongoRepository(Playlist).findOneOrFail(body.playlistID);
-        return {playlist : playlist};
+        return await getMongoRepository(Playlist).findOneOrFail(body.playlistID);
     }
     catch(e)
     {
@@ -23,8 +22,7 @@ export async function getAlbumByID(body: any, message : Message)
 {
     try
     {
-        let album : Album = await getMongoRepository(Album).findOneOrFail(body.albumID);
-        return {album : album};
+        return await getMongoRepository(Album).findOneOrFail(body.albumID);
     }
     catch(e)
     {
@@ -32,11 +30,11 @@ export async function getAlbumByID(body: any, message : Message)
     }
 }
 
-export async function getAlbumByUserID(body : any, message : Message)
+export async function getAlbumsByUserID(body : any, message : Message)
 {
     try
     {
-        let album : Array<Album> = await getMongoRepository(Album).find({
+        return await getMongoRepository(Album).find({
             where: {
               artist: {$eq: body.userID},
             }
@@ -49,11 +47,11 @@ export async function getAlbumByUserID(body : any, message : Message)
     
 }
 
-export async function getPlaylistByUserID(body : any, message : Message)
+export async function getPlaylistsByUserID(body : any, message : Message)
 {
     try
     {
-        let playlist : Array<Playlist> = await getMongoRepository(Playlist).find({
+        return await getMongoRepository(Playlist).find({
             where: {
               owner: {$eq: body.userID},
             }

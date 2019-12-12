@@ -1,8 +1,8 @@
 import { Message } from 'amqp-ts';
-import { getMongoRepository, MongoRepository } from 'typeorm';
+import { getMongoRepository, MongoRepository, ObjectType } from 'typeorm';
 import { Track } from '../models/Track';
 import { Playlist } from '../models/Playlist';
-import MissingArgumentException from '@/shared/error/MissingArgumentException';
+import MissingArgumentError from '@/shared/error/MissingArgumentError';
 import InternalServerError from '@/shared/error/InternalServerError';
 import { EntityNotFoundError } from 'typeorm/error/EntityNotFoundError';
 import EntityNotFoundErrorCusto from "@/shared/error/EntityNotFoundError"
@@ -19,9 +19,9 @@ export async function addTrackToPlaylist(body: any, message: Message)
             const [playlist, track] = await Promise.all([getMongoRepository(Playlist).findOneOrFail(body.playlistID), getMongoRepository(Track).findOneOrFail(body.trackID)]);
             playlist.isTrackInMusicList(body.trackID)
             playlist.tracks.push(track);
-            await getMongoRepository(Playlist).replaceOne({_id : playlist._id},{...playlist})
+            await getMongoRepository(Playlist).replaceOne({_id : playlist._id},{...playlist});
         
-            return { playlist: await getMongoRepository(Playlist).find({where : {_id : playlist._id}}) };
+            return await getMongoRepository(Playlist).findOneOrFail(playlist._id);
         }
         catch (e) 
         {
@@ -32,19 +32,16 @@ export async function addTrackToPlaylist(body: any, message: Message)
             }
             else if(e instanceof MusicAlreadyInPlaylistError)
             {
-                throw new MusicAlreadyInPlaylistError();
+                throw e;
             }
             throw new InternalServerError(e);
         }
     }
     else 
     {
-        throw new MissingArgumentException(new Error("Missing Argument")); 
+        throw new MissingArgumentError(new Error("Missing Argument")); 
     }
 }
-  
-    
-
 
 export async function addTrackToAlbum(body: any, message: Message) 
 {
@@ -57,7 +54,7 @@ export async function addTrackToAlbum(body: any, message: Message)
             album.tracks.push(track);
             await getMongoRepository(Album).replaceOne({_id : album._id},{...album})
         
-            return { playlist: await getMongoRepository(Album).find({where : {_id : album._id}}) };
+            return await getMongoRepository(Playlist).findOneOrFail(album._id);
         }
         catch (e) 
         {
@@ -75,6 +72,31 @@ export async function addTrackToAlbum(body: any, message: Message)
     }
     else 
     {
-        throw new MissingArgumentException(new Error("Missing Argument")); 
+        throw new MissingArgumentError(new Error("Missing Argument")); 
     }
 }
+
+// async function addTrackToMusicList(entity: ObjectType<Entity>, musicListId: string, trackId: string){
+//     try 
+//         {
+//             const [album, track] = await Promise.all([getMongoRepository(entity).findOneOrFail(musicListId), getMongoRepository(Track).findOneOrFail(trackId)]);
+//             album.isTrackInMusicList(trackId)
+//             album.tracks.push(track);
+//             await getMongoRepository(entity).replaceOne({_id : album._id},{...album})
+        
+//             return { playlist: await getMongoRepository(Album).find({where : {_id : album._id}}) };
+//         }
+//         catch (e) 
+//         {
+            
+//             if(e instanceof EntityNotFoundError)
+//             {
+//                 throw new EntityNotFoundErrorCusto(e);
+//             }
+//             else if(e instanceof MusicAlreadyInPlaylistError)
+//             {
+//                 throw new MusicAlreadyInPlaylistError();
+//             }
+//             throw new InternalServerError(e);
+//         }
+// }

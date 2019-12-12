@@ -3,7 +3,7 @@ import { Track } from '../models/Track';
 import { getMongoRepository } from 'typeorm';
 import InternalServerError from '@/shared/error/InternalServerError';
 
-export function registerTracks(body: any, message : Message)
+export function registerTrack(body: any, message : Message)
 {
     try
     {
@@ -11,12 +11,10 @@ export function registerTracks(body: any, message : Message)
         track.owner = body.owner;
         track.cover = body.cover;
         track.link = body.link;
-        getMongoRepository(Track).save(track);
-        return {track : track};
+        return getMongoRepository(Track).save(track);
     }
     catch(e)
     {
-
         throw new InternalServerError(e);
     }
      
