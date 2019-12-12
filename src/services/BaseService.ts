@@ -2,13 +2,15 @@ import { Connection, Exchange, Queue, Message } from "amqp-ts";
 import { Route } from "./Route";
 import BaseError from '@/shared/error/BaseError';
 import InternalServerError from '@/shared/error/InternalServerError';
+import { logger } from '@/shared';
 
 export class BaseService {
 
-
     constructor(channel: Connection, routes: Route[]) {
+        logger.info("Initialization of " + this.constructor.name);
+
         const exchange = channel.declareExchange("soundy_exchange");
-        console.log("baseService")
+        
         for (let route of routes) {
             let queue = channel.declareQueue(route.name, {durable:true});
             queue.bind(exchange);
