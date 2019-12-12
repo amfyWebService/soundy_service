@@ -5,6 +5,7 @@ import { Connection } from "amqp-ts";
 import { registerTracks } from './controllers/RegisterTrack';
 import { addTrackToPlaylist, addTrackToAlbum } from './controllers/AddTrackToMusicList';
 import {createAlbum,createPlaylist} from './controllers/CreateMusicList';
+import { getPlaylistByID, getAlbumByID, getAlbumByUserID, getPlaylistByUserID } from './controllers/getMusicList';
 
 export class MusicService extends BaseService {
     constructor(channel: Connection) {
@@ -35,6 +36,23 @@ export class MusicService extends BaseService {
                     
                     name: "createAlbum",
                     method: createAlbum
+                }
+                ,
+                {
+                    name : "getPlaylistByID",
+                    method : getPlaylistByID
+                },
+                {
+                    name : "getAlbumByID",
+                    method : getAlbumByID
+                },
+                {
+                    name : "getAlbumsByUserID",
+                    method : getAlbumByUserID
+                },
+                {
+                    name : "getPlaylistsByUserID",
+                    method : getPlaylistByUserID
                 }
             ]);
             
