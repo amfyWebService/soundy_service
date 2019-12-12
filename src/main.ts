@@ -31,7 +31,7 @@ export class App {
       connect(),
     ]);
 
-    logger.info('Server started: { Express port: ' + process.env.PORT + ", Amqp url: " + process.env.AMQP_URL + " }");
+    logger.info(`Server started: { Express port: ${process.env.PORT}, Amqp url: ${process.env.AMQP_URL}, Mongo: ${process.env.MONGO_SERVER}:${process.env.MONGO_PORT} }`);
   }
 
   private async runExpress(port:number){

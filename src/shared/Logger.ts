@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'production') {
     wintstonLogger.add(errTransport);
     wintstonLogger.add(infoTransport);
 
-} else {
+}
 
     const errorStackFormat = format((info) => {
         if (info.stack) {
@@ -55,7 +55,7 @@ if (process.env.NODE_ENV === 'production') {
         ),
     });
     wintstonLogger.add(consoleTransport);
-}
+
 
 // Export logger
 export const logger = wintstonLogger;
