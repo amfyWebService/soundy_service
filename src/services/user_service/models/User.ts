@@ -1,7 +1,6 @@
 import { Entity, ObjectID, ObjectIdColumn, Column, BeforeInsert, BeforeUpdate, Unique } from "typeorm";
-import {hash, hashSync} from "bcrypt"
-import {IsEmail, IsDate, IsDateString, IsISO8601} from "class-validator";
-import { json } from 'body-parser';
+import { hashSync } from "bcrypt"
+import { IsEmail, IsISO8601 } from "class-validator";
 
 @Entity()
 export default class User {
@@ -13,32 +12,30 @@ export default class User {
     public password: string;
 
     @BeforeInsert()
-    @BeforeUpdate()
-    hashPassword()  {
+    hashPassword() {
         if (this.password) {
-            this.password = hashSync(this.password,10);
+            this.password = hashSync(this.password, 10);
         }
     }
 
     @Column()
-    bio : string;
+    bio: string;
 
     @Column({ unique: true })
     @IsEmail()
-    mail : string;
+    mail: string;
 
     @IsISO8601()
     @Column()
-    birthday : Date;
-    
+    birthday: Date;
+
     @Column()
     firstname: string;
 
     @Column()
     lastname: string;
 
-    toJson()
-    {
+    toJson() {
         return JSON.stringify(this);
     }
 
