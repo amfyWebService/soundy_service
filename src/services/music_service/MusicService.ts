@@ -1,4 +1,4 @@
-import getTracks from "./controllers/GetTracks";
+import {getTrack} from "./controllers/GetTracks";
 import { BaseService } from "../BaseService";
 import { Route } from "../Route";
 import { Connection } from "amqp-ts";
@@ -14,7 +14,7 @@ export class MusicService extends BaseService {
             [
                 {
                     name: "getTracks",
-                    method: getTracks
+                    method: getTrack
                 },
                 {
                     name: "registerTrack",
