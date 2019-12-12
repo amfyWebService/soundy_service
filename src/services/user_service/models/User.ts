@@ -7,7 +7,7 @@ import { json } from 'body-parser';
 export default class User {
 
     @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
 
     @Column()
     public password: string;

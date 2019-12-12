@@ -5,6 +5,7 @@ import express, {Application} from "express";
 import bodyParser from 'body-parser';
 import ExpressRoutes from './ExpressRoutes';
 import {connect} from "@/DbConnection";
+import { MusicService } from './services/music_service/MusicService';
 
 export class App {
   
@@ -43,8 +44,10 @@ export class App {
   }
 
   private async runAmqp(url:string){
+    logger.info("Run AMQP");
     this.amqpConnection = new Amqp.Connection(process.env.AMQP_URL);
     const userService = new UserService(this.amqpConnection);
+    const musicService = new MusicService(this.amqpConnection);
   }
 }
 

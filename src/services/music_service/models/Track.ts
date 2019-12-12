@@ -5,12 +5,19 @@ export class Track
     @ObjectIdColumn()
     id: ObjectID;
     
-    @Column()
-    genre : string;
 
-    @Column()
-    artist : string;
+    @ObjectIdColumn()
+    owner : ObjectID;
 
     @Column()
     cover : string;
+
+    @Column()
+    link : string;
+
+    toJson() :string
+    {
+        return JSON.stringify(this);
+    }
+
 }
