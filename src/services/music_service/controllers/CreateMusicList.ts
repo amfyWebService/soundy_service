@@ -28,7 +28,7 @@ export async function createPlaylist(body: any, message: Message) {
 export async function createAlbum(body: any, message: Message) {
     try {
         let album = new Album();
-        album.artist = body.artist;
+        album.owner = body.artist;
         album.cover = body.cover;
         album.tracks = [];
         album.name = body.name;

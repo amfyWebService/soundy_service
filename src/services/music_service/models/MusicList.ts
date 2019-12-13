@@ -1,13 +1,15 @@
-import { Entity, ObjectIdColumn, ObjectID, Column } from 'typeorm';
 import { Track } from './Track';
+import { ObjectID } from 'typeorm';
 
 export interface MusicList
 {
 
     name : string;
 
+    owner: string;
+    
     tracks : Track[];
 
-    isTrackInMusicList(trackID)
+    isTrackInMusicList(trackID: string | ObjectID);
 
 }

@@ -1,12 +1,12 @@
-import { Column, Entity, ObjectIdColumn, ObjectID } from "typeorm";
+import { Column, Entity, ObjectIdColumn, ObjectID, ObjectType } from "typeorm";
 @Entity()
 export class Track
 {
     @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
     
-    @ObjectIdColumn()
-    owner : ObjectID;
+    @Column()
+    owner: string | ObjectID;
 
     @Column()
     title: string;

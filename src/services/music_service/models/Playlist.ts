@@ -1,35 +1,31 @@
-import { Entity, ObjectID, ObjectIdColumn, Column,  } from "typeorm";
+import { Entity, ObjectID, ObjectIdColumn, Column, } from "typeorm";
 import { Track } from "./Track";
 import { MusicList } from './MusicList';
 import MusicAlreadyInPlaylistError from '../error/MusicAlreadyInPlaylistError';
 
 @Entity()
-export class Playlist implements MusicList
-{
+export class Playlist implements MusicList {
     @ObjectIdColumn()
     _id: ObjectID;
 
     @Column()
-    name : string;
+    name: string;
 
     @Column(type => Track)
-    tracks : Track[];
-    
-    @Column()
-    owner : String;
+    tracks: Track[];
 
-     /*
-    * Return true if one track as the same id than the parameter value
-    */
-   isTrackInMusicList(id : string)
-   {
-       for(var item of this.tracks)
-       {
-           if(item.id.toString() == id)
-           {
-               throw new MusicAlreadyInPlaylistError();
-           }
-       }
-   }
+    @Column()
+    owner: string;
+
+    /*
+     * Return true if one track as the same id than the parameter value
+     */
+    isTrackInMusicList(trackID: string | ObjectID) {
+        for (let item of this.tracks) {
+            if (item._id.toString() == trackID) {
+                throw new MusicAlreadyInPlaylistError();
+            }
+        }
+    }
 
 }
