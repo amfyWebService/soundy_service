@@ -9,7 +9,7 @@ export async function updateTrack(body: any, message: Message) {
         const user = body.$_currentUser;
         let track = await getMongoRepository(Track).findOneOrFail(body.id);
 
-        if (track.id !== user.id) throw new ForbiddenError();
+        if (track.owner !== user.id) throw new ForbiddenError();
 
         track.title = body.title;
         
